@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -26,15 +27,11 @@ public class CalculateTax extends HttpServlet {
 		double deduction = Double.parseDouble(request.getParameter("deduction"));
 		double incomeTax = (salary - deduction)*0.2;
 
-		response.getWriter()
-			.append("\nName: " + name)
-			.append("\nGender: " + gender)
-			.append("\nSalary: " + salary)
-			.append("\nDeduction: " + deduction)
-			.append("\nIncomeTax: " + incomeTax);
-
-		String newFile = new File("data.txt").getAbsolutePath();
-		System.out.println("File:" + newFile);
+		File file = new File("C:\\Users\\Lenovo\\eclipse-workspace\\tryserv\\try.txt");
+		file.createNewFile();
+        FileOutputStream fout = new FileOutputStream(file);
+        fout.write(("Name: "+name+"Gender: "+gender+"Salary: "+salary+"Deduction: "+deduction+"Tax: "+incomeTax).getBytes());
+        fout.close();
 
 		PrintWriter pw = response.getWriter();
 		pw.println("Name: " + name);
