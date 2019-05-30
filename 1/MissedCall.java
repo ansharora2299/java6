@@ -68,4 +68,3 @@ public class MissedCall {
 	}
 
 }
-© 2019 GitHub, Inc.
