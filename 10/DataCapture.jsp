@@ -1,44 +1,51 @@
-<%@ page import="java.util.*"%>
-<%@ page import="java.io.*"%>
+<%@page import="java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Main Page</title>
 </head>
 <body>
-	<%
-		HashMap<String, String> hm = new HashMap<String, String>();
-		hm.put("A", "A");
-		hm.put("B", "B");
-		String name = request.getParameter("name");
-		String pass = request.getParameter("pass");
-		PrintWriter pout = response.getWriter();
-		if (hm.containsKey(name) && pass.equals(hm.get(name))) {
-			pout.println("Welcome " + name);
-			pout.println(new Date());
+	<%  HashMap<String,String> hm= new HashMap<String,String>();
+		String user=request.getParameter("user");
+		String pass=request.getParameter("pass");
+		Date date=null;
+		Boolean flag=false;
+	 	hm.put("ansh", "2299");
+		hm.put("anay", "khator");
+		
+		if(!(hm.containsKey(user))){
 	%>
-	<form action="CalculateTax.jsp" method="get">
-		Name : <input type="text" name="name">
-		Profession <select name="prof">
-			<option>Engineer</option>
-			<option>Doctor</option>
-		</select><br> Gender <select name="gender">
-			<option>Male</option>
-			<option>Female</option>
-		</select>
-		Income: <input type="text" name="salary">
-		<input type="submit">
+			<h1>No Such User</h1>
+			<a href=login.html>Click here to Try Again</a>
+	<%	}
+		else if(!(hm.get(user).equals(pass))){
+	%>
+			<h1>Wrong Password!</h1>
+			<a href=login.html>Click here to Try Again</a>
+	<%	}
+		else{
+			out.print("<h1>Welcome "+user+"</h1>");
+			date=new Date();			
+			out.print("<h2>Today's Date: "+date+"</h2>");
+	%>
+			<form action="CalculateTax.jsp" method="get">
+			Name : <input type="text" name="name">
+			Profession <select name="prof">
+				<option>Engineer</option>
+				<option>Doctor</option>
+			</select><br> Gender <select name="gender">
+				<option>Male</option>
+				<option>Female</option>
+			</select>
+			Income: <input type="text" name="income">
+			<input type="submit">
 
-	</form>
-	<%
-		} else {
-	%>
-	<jsp:forward page="Login.html"></jsp:forward>
-	<%
-		}
-	%>
+		</form>
+	<%	}
+		
+		%>
 </body>
 </html>
